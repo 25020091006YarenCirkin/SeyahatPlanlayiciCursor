@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Yolculuk — Türkiye Seyahat Planlayıcı</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a href="#ana-sayfa" class="logo">
+        <span class="logo-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 17L9 11L13 15L21 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 7H21V14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        Yolculuk
+      </a>
+      <button type="button" class="nav-toggle" id="navToggle" aria-label="Menüyü aç/kapat">
+        <span></span><span></span><span></span>
+      </button>
+      <nav class="main-nav" id="mainNav">
+        <a href="#ana-sayfa">Ana Sayfa</a>
+        <a href="#planlayici">Planlayıcı</a>
+        <a href="#iletisim">İletişim</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="ana-sayfa" class="hero">
+      <div class="container hero-content">
+        <p class="hero-badge fade-in">Türkiye ve dünya rotaları</p>
+        <h1 class="fade-in delay-1">Seyahatlerinizi tek yerde planlayın</h1>
+        <p class="hero-lead fade-in delay-2">
+          Tarih, konum ve notlarınızı kaydedin; yaklaşan yolculuklarınızı kaçırmayın.
+        </p>
+        <a href="#planlayici" class="btn btn-primary fade-in delay-3">Plan oluştur</a>
+      </div>
+      <div class="hero-decoration" aria-hidden="true"></div>
+    </section>
+
+    <section id="planlayici" class="section planner">
+      <div class="container">
+        <header class="section-head">
+          <h2>Seyahat planlayıcı</h2>
+          <p>Plan ekleyin, düzenleyin veya silin. Veriler tarayıcınızda güvenle saklanır.</p>
+        </header>
+
+        <div class="planner-layout">
+          <aside class="calendar-panel">
+            <div class="calendar-card">
+              <div class="calendar-header">
+                <button type="button" class="cal-nav" id="calPrev" aria-label="Önceki ay">‹</button>
+                <h3 id="calTitle">Nisan 2026</h3>
+                <button type="button" class="cal-nav" id="calNext" aria-label="Sonraki ay">›</button>
+              </div>
+              <div class="weekdays">
+                <span>Pzt</span><span>Sal</span><span>Çar</span><span>Per</span><span>Cum</span><span>Cmt</span><span>Paz</span>
+              </div>
+              <div class="calendar-grid" id="calendarGrid"></div>
+              <p class="calendar-hint" id="calendarHint">Bir güne tıklayarak o tarihteki planları görebilirsiniz.</p>
+            </div>
+          </aside>
+
+          <div class="planner-main">
+            <form class="plan-form card-elevated" id="planForm" novalidate>
+              <input type="hidden" id="editId" value="" />
+              <h3 id="formTitle">Yeni plan ekle</h3>
+              <div class="form-row">
+                <label for="baslik">Başlık</label>
+                <input type="text" id="baslik" name="baslik" required placeholder="Örn. Kapadokya balon turu" maxlength="120" />
+              </div>
+              <div class="form-row two-cols">
+                <div>
+                  <label for="tarih">Tarih</label>
+                  <input type="date" id="tarih" name="tarih" required />
+                </div>
+                <div>
+                  <label for="konum">Konum</label>
+                  <input type="text" id="konum" name="konum" required placeholder="Şehir veya adres" maxlength="200" />
+                </div>
+              </div>
+              <div class="form-row">
+                <label for="notlar">Notlar</label>
+                <textarea id="notlar" name="notlar" rows="3" placeholder="Bilet, otel, hatırlatmalar..."></textarea>
+              </div>
+              <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="submitBtn">Planı kaydet</button>
+                <button type="button" class="btn btn-ghost" id="cancelEdit" hidden>Düzenlemeyi iptal et</button>
+              </div>
+            </form>
+
+            <div class="toolbar card-elevated">
+              <label class="toolbar-label" for="filterSelect">Filtre</label>
+              <select id="filterSelect" class="filter-select">
+                <option value="all">Tüm planlar</option>
+                <option value="upcoming">Yaklaşan seyahatler</option>
+                <option value="past">Geçmiş seyahatler</option>
+                <option value="thisMonth">Bu ay</option>
+              </select>
+              <button type="button" class="btn btn-ghost btn-sm" id="clearDayFilter" hidden>Gün filtresini temizle</button>
+            </div>
+
+            <div class="plans-header">
+              <h3>Planlarım</h3>
+              <span class="plan-count" id="planCount">0 plan</span>
+            </div>
+            <div class="plans-grid" id="plansGrid">
+              <p class="empty-state" id="emptyState">Henüz plan yok. Yukarıdan ilk seyahatinizi ekleyin.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="iletisim" class="section contact">
+      <div class="container">
+        <header class="section-head">
+          <h2>İletişim</h2>
+          <p>Sorularınız için bize yazın; yolculuk planlamanızda size yardımcı olmaktan mutluluk duyarız.</p>
+        </header>
+        <div class="contact-grid">
+          <div class="contact-card card-elevated">
+            <span class="contact-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4V4zm2 4l8 5 8-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>E-posta</h3>
+            <p>destek@yolculuk.ornek</p>
+          </div>
+          <div class="contact-card card-elevated">
+            <span class="contact-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </span>
+            <h3>Telefon</h3>
+            <p>+90 (212) 555 01 23</p>
+          </div>
+          <div class="contact-card card-elevated">
+            <span class="contact-icon" aria-hidden="true">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 1118 0z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2"/></svg>
+            </span>
+            <h3>Adres</h3>
+            <p>İstanbul, Türkiye</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <p>© 2026 Yolculuk — Seyahat planlama aracı</p>
+    </div>
+  </footer>
+
+  <div class="modal" id="deleteModal" role="dialog" aria-modal="true" aria-labelledby="deleteModalTitle" hidden>
+    <div class="modal-backdrop" id="deleteModalBackdrop"></div>
+    <div class="modal-box">
+      <h3 id="deleteModalTitle">Planı sil</h3>
+      <p id="deleteModalText">Bu planı silmek istediğinize emin misiniz?</p>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-ghost" id="deleteCancel">Vazgeç</button>
+        <button type="button" class="btn btn-danger" id="deleteConfirm">Sil</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
